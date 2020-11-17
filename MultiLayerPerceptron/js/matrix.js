@@ -2,8 +2,6 @@ class Matrix {
     constructor(rows, cols) {
         this.rows = rows;
         this.cols = cols;
-        this.data = [];
-
         this.data = Array(this.rows).fill().map(() => Array(this.cols).fill(0));
     }
 
@@ -17,11 +15,6 @@ class Matrix {
         }
         return this
             .map(e => ((Math.random() * (b - a)) + a));
-    }
-
-    static transpose(m) {
-        return new Matrix(m.cols, m.rows)
-            .map((_, i, j) => m.data[j][i]);
     }
 
     add(m) {
@@ -43,7 +36,7 @@ class Matrix {
             return;
         }
         return new Matrix(m1.rows, m1.cols)
-            .map((_, i, j) => m1.data[i][j] - m2.data[i][j]);
+            .map((_, i, j) => m1.data[i][j] + m2.data[i][j]);
     }
 
     multiply(m) {
@@ -76,6 +69,11 @@ class Matrix {
                 }
                 return sum;
             });
+    }
+
+    static transpose(m) {
+        return new Matrix(m.cols, m.rows)
+            .map((_, i, j) => m.data[j][i]);
     }
 
     map(func) {
