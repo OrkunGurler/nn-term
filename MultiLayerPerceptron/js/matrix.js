@@ -59,15 +59,13 @@ class Matrix {
             console.log("[ERR: scalar] First matrix's column and second matrix's row sizes are not equal!");
             return undefined;
         }
-        let m = new Matrix(m1.rows, m2.cols);
-        for (let i = 0; i < m.rows; i++) {
-            for (let j = 0; j < m.cols; j++) {
-                for (let k = 0; k < m1.cols; k++) {
-                    m.data[i][j] += m1.data[i][k] * m2.data[k][j];
-                }
+        return new Matrix(m1.rows, m2.cols).map((e, i, j) => {
+            let sum = 0;
+            for (let k = 0; k < a.cols; k++) {
+                sum += m1.data[i][k] * m2.data[k][j];
             }
-        }
-        return m;
+            return sum;
+        });
     }
 
     print() {
