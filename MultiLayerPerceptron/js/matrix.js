@@ -51,7 +51,7 @@ class Matrix {
     multiply(m) {
         if (m instanceof Matrix) {
             if (this.rows !== m.rows || this.cols !== m.cols) {
-                console.log('[ERR: multiply] Columns and Rows of Matrices must match.');
+                console.log("[ERR: multiply] Columns and Rows of Matrices must match.");
                 return;
             }
             return this
