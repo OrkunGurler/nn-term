@@ -39,6 +39,15 @@ class Matrix {
             .map((_, i, j) => m1.data[i][j] + m2.data[i][j]);
     }
 
+    static sub(m1, m2) {
+        if (m1.rows !== m2.rows || m1.cols !== m2.cols) {
+            console.log("[ERR: static sub] Columns and Rows must match!");
+            return;
+        }
+        return new Matrix(m1.rows, m1.cols)
+            .map((_, i, j) => m1.data[i][j] - m2.data[i][j]);
+    }
+
     multiply(m) {
         if (m instanceof Matrix) {
             if (this.rows !== m.rows || this.cols !== m.cols) {
@@ -92,11 +101,6 @@ class Matrix {
             .map((e, i, j) => func(m.data[i][j], i, j));
     }
 
-    print() {
-        console.table(this.data);
-        return this;
-    }
-
     copy() {
         let m = new Matrix(this.rows, this.cols);
         for (let i = 0; i < this.rows; i++) {
@@ -107,8 +111,9 @@ class Matrix {
         return m;
     }
 
-    static fromArray(arr) {
-        return new Matrix(arr.length, 1).map((e, i) => arr[i]);
+    print() {
+        console.table(this.data);
+        return this;
     }
 
     toArray() {
@@ -119,6 +124,10 @@ class Matrix {
             }
         }
         return arr;
+    }
+
+    static fromArray(arr) {
+        return new Matrix(arr.length, 1).map((e, i) => arr[i]);
     }
 
     serialize() {
