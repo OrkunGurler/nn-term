@@ -73,7 +73,7 @@ class Matrix {
         return new Matrix(m1.rows, m2.cols)
             .map((e, i, j) => {
                 let sum = 0;
-                for (let k = 0; k < a.cols; k++) {
+                for (let k = 0; k < m1.cols; k++) {
                     sum += m1.data[i][k] * m2.data[k][j];
                 }
                 return sum;
