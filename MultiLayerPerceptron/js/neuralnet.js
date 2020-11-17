@@ -19,16 +19,16 @@ let tanh = new Activations(
 class NeuralNet {
     constructor(input, hidden, output) {
         if (input instanceof NeuralNet) {
-            let a = input;
-            this.input = a.input;
-            this.hidden = a.hidden;
-            this.output = a.output;
+            let n = input;
+            this.input = n.input;
+            this.hidden = n.hidden;
+            this.output = n.output;
 
-            this.weights_ih = a.weights_ih.copy();
-            this.weights_ho = a.weights_ho.copy();
+            this.weights_ih = n.weights_ih.copy();
+            this.weights_ho = n.weights_ho.copy();
 
-            this.bias_h = a.bias_h.copy();
-            this.bias_o = a.bias_o.copy();
+            this.bias_h = n.bias_h.copy();
+            this.bias_o = n.bias_o.copy();
         } else {
             this.input = input;
             this.hidden = hidden;
@@ -47,6 +47,7 @@ class NeuralNet {
         this.setLearningRate();
         this.setActivationFunction();
     }
+
     setLearningRate(learning_rate = 0.1) {
         this.learning_rate = learning_rate;
     }
