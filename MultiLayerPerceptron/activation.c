@@ -5,6 +5,14 @@
 /*     Activation Functions for Neural Network     */
 /* ##### ##### ##### ##### ##### ##### ##### ##### */
 
+Activation activation(float (*func)(float), float (*func_d)(float))
+{
+    Activation act;
+    act.func = func;
+    act.func_d = func_d;
+    return act;
+}
+
 // Identity
 float Identity(float x)
 {

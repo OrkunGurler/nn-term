@@ -3,7 +3,6 @@ typedef struct Matrix
     int rows, cols;
     float **data;
 } Matrix;
-
 Matrix matrix(int rows, int cols);
 
 void m_rand(Matrix m, int a, int b);

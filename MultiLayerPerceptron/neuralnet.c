@@ -9,10 +9,11 @@ Nodes nodes(int input, int hidden, int output)
     return n;
 }
 
-NeuralNet neuralnet(int *node_arr, float learning_rate, float (*activation)(float))
+NeuralNet neuralnet(Nodes n, Activation func, float learning_rate)
 {
     NeuralNet net;
-    net.nodes = nodes(node_arr[0], node_arr[1], node_arr[2]);
+
+    net.nodes = n;
 
     net.weights_ih = matrix(net.nodes.hidden, net.nodes.input);
     m_rand(net.weights_ih, -1, 1);
@@ -24,25 +25,26 @@ NeuralNet neuralnet(int *node_arr, float learning_rate, float (*activation)(floa
     net.bias_ho = matrix(net.nodes.output, 1);
     m_rand(net.bias_ho, -1, 1);
 
+    net.activation = func;
+
     net.learning_rate = learning_rate;
-    net.activasion = activation;
 
     return net;
 }
 
-Matrix predict(NeuralNet net, float *input_arr, int size)
+Matrix predict(NeuralNet net, Matrix input)
 {
-    Matrix inputs = from_arr(input_arr, size);
-
-    Matrix hidden = m_scalar(net.weights_ih, inputs);
+    Matrix hidden = m_scalar(net.weights_ih, input);
     hidden = m_add(hidden, net.bias_ih);
-    m_map(hidden, net.activasion);
+    m_map(hidden, net.activation.func);
 
     Matrix output = m_scalar(net.weights_ho, hidden);
     output = m_add(output, net.bias_ho);
-    m_map(output, net.activasion);
+    m_map(output, net.activation.func_d);
 
     return output;
 }
 
-void train(NeuralNet net, float input_arr, float target_arr) {}
+void train(NeuralNet net, float input_arr, float target_arr)
+{
+}

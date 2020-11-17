@@ -1,10 +1,10 @@
 #include "matrix.h"
+#include "activation.h"
 
 typedef struct Nodes
 {
     int input, hidden, output;
 } Nodes;
-
 Nodes nodes(int input, int hidden, int output);
 
 typedef struct NeuralNet
@@ -17,10 +17,11 @@ typedef struct NeuralNet
     Matrix weights_ho;
     Matrix bias_ho;
 
-    float learning_rate;
-    float (*activasion)(float);
-} NeuralNet;
+    Activation activation;
 
-NeuralNet neuralnet(int *node_arr, float learning_rate, float (*activation)(float));
-Matrix predict(NeuralNet net, float *input_arr, int size);
+    float learning_rate;
+} NeuralNet;
+NeuralNet neuralnet(Nodes n, Activation func, float learning_rate);
+
+Matrix predict(NeuralNet net, Matrix input);
 void train(NeuralNet net, float input_arr, float target_arr);

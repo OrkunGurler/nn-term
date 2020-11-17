@@ -1,15 +1,20 @@
 #include "neuralnet.h"
-#include "activation.h"
 
 int main(int argc, char const *argv[])
 {
-    int node_arr[] = {3, 3, 1}; // Input, Hidden, Output Node Respectively
-    NeuralNet net = neuralnet(node_arr, 0.01, &TanH);
+    int input_nodes = 3;
+    int hidden_nodes = 3;
+    int output_nodes = 1;
+    Nodes n = nodes(input_nodes, hidden_nodes, output_nodes);
 
-    float input_arr[] = {1, 2, 3};
-    int input_arr_size = (int)(sizeof(input_arr) / sizeof(float));
+    Activation af = activation(&Sigmoid, &Sigmoid_d);
 
-    Matrix p = predict(net, input_arr, input_arr_size);
+    NeuralNet net = neuralnet(n, af, 0.01);
+
+    Matrix input = matrix(input_nodes, 1);
+    m_rand(input, -100, 100);
+
+    Matrix p = predict(net, input);
     PrintMatrix(p);
 
     return 0;
