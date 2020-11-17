@@ -180,9 +180,9 @@ void PrintArray(float *arr, int size)
     int i;
     for (i = 0; i < size - 1; i++)
     {
-        printf("%.1f, ", arr[i]);
+        printf("%.6f, ", arr[i]);
     }
-    printf("%.1f\n", arr[size - 1]);
+    printf("%.6f\n", arr[size - 1]);
 }
 
 void PrintMatrix(Matrix m)

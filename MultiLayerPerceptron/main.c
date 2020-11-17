@@ -1,42 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "matrix.h"
-
-typedef struct nodes
-{
-    int input, hidden, output;
-} nodes;
-nodes Nodes(int input, int hidden, int output);
-
-float Sigmoid(float x);
-float Sigmoid_d(float x);
+#include "neuralnet.h"
+#include "activation.h"
 
 int main(int argc, char const *argv[])
 {
-    nodes n = Nodes(3, 3, 1);
-    matrix m = Matrix(3, 2);
+    NeuralNet n = neuralnet(3, 3, 1, 0.01, &Sigmoid);
+
+    float input_arr[] = {1, 2, 3};
+    int input_arr_size = (int)(sizeof(input_arr) / sizeof(float));
+
+    Matrix p = predict(n, input_arr, input_arr_size);
+    PrintMatrix(p);
 
     return 0;
-}
-
-float Sigmoid(float x)
-{
-    float r = 1 / (1 + exp(-x));
-    return r;
-}
-
-float Sigmoid_d(float x)
-{
-    float r = Sigmoid(x) * (1 - Sigmoid(x));
-    return r;
-}
-
-nodes Nodes(int input, int hidden, int output)
-{
-    nodes n;
-    n.input = input;
-    n.hidden = hidden;
-    n.output = output;
-    return n;
 }
