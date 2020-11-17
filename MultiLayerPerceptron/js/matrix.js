@@ -27,6 +27,18 @@ class Matrix {
         return new Matrix(matrix.cols, matrix.rows).map((_, i, j) => matrix.data[j][i]);
     }
 
+    add(v) {
+        if (v instanceof Matrix) {
+            if (this.rows !== v.rows || this.cols !== v.cols) {
+                console.log("[ERR: add] Columns and Rows must match!");
+                return;
+            }
+            return this.map((e, i, j) => e + v.data[i][j]);
+        } else {
+            return this.map(e => e + v);
+        }
+    }
+
     map(func) {
         let val;
         for (let i = 0; i < this.rows; i++) {
