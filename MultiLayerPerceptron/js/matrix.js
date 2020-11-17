@@ -24,9 +24,9 @@ class Matrix {
             .map(e => ((Math.random() * (b - a)) + a));
     }
 
-    static transpose(matrix) {
-        return new Matrix(matrix.cols, matrix.rows)
-            .map((_, i, j) => matrix.data[j][i]);
+    static transpose(m) {
+        return new Matrix(m.cols, m.rows)
+            .map((_, i, j) => m.data[j][i]);
     }
 
     add(m) {
@@ -42,9 +42,9 @@ class Matrix {
         }
     }
 
-    static sub(m1, m2) {
+    static add(m1, m2) {
         if (m1.rows !== m2.rows || m1.cols !== m2.cols) {
-            console.log("[ERR: sub] Columns and Rows must match!");
+            console.log("[ERR: static add] Columns and Rows must match!");
             return;
         }
         return new Matrix(m1.rows, m1.cols)
@@ -66,11 +66,11 @@ class Matrix {
 
     static scalar(m1, m2) {
         if (!(m1 instanceof Matrix) || !(m2 instanceof Matrix)) {
-            console.log("[ERR: scalar] Parameters must be a Matrix object!");
+            console.log("[ERR: static scalar] Parameters must be a Matrix object!");
             return undefined;
         }
         if (m1.cols !== m2.rows) {
-            console.log("[ERR: scalar] First matrix's column and second matrix's row sizes are not equal!");
+            console.log("[ERR: static scalar] First matrix's column and second matrix's row sizes are not equal!");
             return undefined;
         }
         return new Matrix(m1.rows, m2.cols)
@@ -102,6 +102,20 @@ class Matrix {
     print() {
         console.table(this.data);
         return this;
+    }
+
+    static fromArray(arr) {
+        return new Matrix(arr.length, 1).map((e, i) => arr[i]);
+    }
+
+    toArray() {
+        let arr = [];
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                arr.push(this.data[i][j]);
+            }
+        }
+        return arr;
     }
 
     serialize() {
