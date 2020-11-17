@@ -94,4 +94,17 @@ class Matrix {
         console.table(this.data);
         return this;
     }
+
+    serialize() {
+        return JSON.stringify(this);
+    }
+
+    static deserialize(data) {
+        if (typeof data == 'string') {
+            data = JSON.parse(data);
+        }
+        let m = new Matrix(data.rows, data.cols);
+        m.data = data.data;
+        return m;
+    }
 }
