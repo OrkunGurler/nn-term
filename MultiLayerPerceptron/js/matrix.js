@@ -13,7 +13,7 @@ class Matrix {
     }
 
     randomize(a, b) {
-        if (a > b) {
+        if (a >= b) {
             console.log("[ERR: randomize] First value must be lower than the second one!");
             return undefined;
         }
@@ -23,16 +23,6 @@ class Matrix {
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
                 this.data[i][j] = (Math.random() * (b - a)) + a;
-            }
-        }
-    }
-
-    map(func) {
-        let val;
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                val = this.data[i][j];
-                this.data[i][j] = func(val);
             }
         }
     }
@@ -47,9 +37,23 @@ class Matrix {
         return m_t;
     }
 
-    static dotproduct(m1, m2) {
+    map(func) {
+        let val;
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                val = this.data[i][j];
+                this.data[i][j] = func(val);
+            }
+        }
+    }
+
+    static scalar(m1, m2) {
+        if (!(m1 instanceof Matrix) || !(m2 instanceof Matrix)) {
+            console.log("[ERR: scalar] Parameters must be a Matrix object!");
+            return undefined;
+        }
         if (m1.cols !== m2.rows) {
-            console.log("[ERR: dotproduct] First matrix's column and second matrix's row sizes are not equal!");
+            console.log("[ERR: scalar] First matrix's column and second matrix's row sizes are not equal!");
             return undefined;
         }
         let m = new Matrix(m1.rows, m2.cols);
@@ -62,6 +66,8 @@ class Matrix {
         }
         return m;
     }
+
+    static vector(m1, m2) { }
 
     print() {
         console.table(this.data);
