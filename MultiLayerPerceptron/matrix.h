@@ -1,24 +1,27 @@
-typedef struct matrix
+typedef struct Matrix
 {
     int rows, cols;
     float **data;
-} matrix;
+} Matrix;
 
-matrix Matrix(int rows, int cols);
+Matrix matrix(int rows, int cols);
 
-void m_rand(matrix m, int a, int b);
+void m_rand(Matrix m, int a, int b);
 
-void m_s_add(matrix m, float n);
-matrix m_add(matrix m1, matrix m2);
+void m_s_add(Matrix m, float n);
+Matrix m_add(Matrix m1, Matrix m2);
 
-void m_s_mult(matrix m, float n);
-matrix m_scalar(matrix m1, matrix m2);
+void m_s_mult(Matrix m, float n);
+Matrix m_scalar(Matrix m1, Matrix m2);
 
-matrix m_tra(matrix m);
+Matrix m_tra(Matrix m);
 
-matrix m_copy(matrix m);
+void m_map(Matrix m, float (*func)(float));
 
-float **to_arr(matrix m);
-matrix from_arr(float *arr, int size);
+Matrix m_copy(Matrix m);
 
-void PrintMatrix(matrix m);
+float *to_arr(Matrix m);
+Matrix from_arr(float *arr, int size);
+
+void PrintArray(float *arr, int size);
+void PrintMatrix(Matrix m);
