@@ -107,4 +107,25 @@ class NeuralNet {
         // targets.print();
         // error.print();
     }
+
+    serialize() {
+        return JSON.stringify(this);
+    }
+
+    static deserialize(data) {
+        if (typeof data == 'string') {
+            data = JSON.parse(data);
+        }
+
+        let nn = new NeuralNet(data.input, data.hidden, data.output);
+
+        nn.weights_ih = Matrix.deserialize(data.weights_ih);
+        nn.weights_ho = Matrix.deserialize(data.weights_ho);
+
+        nn.bias_h = Matrix.deserialize(data.bias_h);
+        nn.bias_o = Matrix.deserialize(data.bias_o);
+
+        nn.learning_rate = data.learning_rate;
+        return nn;
+    }
 }
