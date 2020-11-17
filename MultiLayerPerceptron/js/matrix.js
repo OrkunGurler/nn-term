@@ -42,6 +42,15 @@ class Matrix {
         }
     }
 
+    static sub(m1, m2) {
+        if (m1.rows !== m2.rows || m1.cols !== m2.cols) {
+            console.log("[ERR: sub] Columns and Rows must match!");
+            return;
+        }
+        return new Matrix(m1.rows, m1.cols)
+            .map((_, i, j) => m1.data[i][j] - m2.data[i][j]);
+    }
+
     multiply(m) {
         if (m instanceof Matrix) {
             if (this.rows !== m.rows || this.cols !== m.cols) {
@@ -107,4 +116,8 @@ class Matrix {
         m.data = data.data;
         return m;
     }
+}
+
+if (typeof module !== 'undefined') {
+    module.exports = Matrix;
 }
