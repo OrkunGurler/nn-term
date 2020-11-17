@@ -4,4 +4,8 @@ class Net {
         this.hidden = hidden;
         this.output = output;
     }
+
+    feedforward() { }
+
+    backpropagation() { }
 }

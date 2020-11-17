@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <time.h>
 #include "matrix.h"
 
 typedef struct nodes
@@ -23,7 +22,7 @@ int main(int argc, char const *argv[])
 
 float Sigmoid(float x)
 {
-    float r = 1 / (1 + exp(x));
+    float r = 1 / (1 + exp(-x));
     return r;
 }
 
