@@ -20,34 +20,39 @@ class Matrix {
         if (b <= 0) {
             [a, b] = [b, a];
         }
-        return this.map(e => ((Math.random() * (b - a)) + a));
+        return this
+            .map(e => ((Math.random() * (b - a)) + a));
     }
 
     static transpose(matrix) {
-        return new Matrix(matrix.cols, matrix.rows).map((_, i, j) => matrix.data[j][i]);
+        return new Matrix(matrix.cols, matrix.rows)
+            .map((_, i, j) => matrix.data[j][i]);
     }
 
-    add(v) {
-        if (v instanceof Matrix) {
-            if (this.rows !== v.rows || this.cols !== v.cols) {
+    add(m) {
+        if (m instanceof Matrix) {
+            if (this.rows !== m.rows || this.cols !== m.cols) {
                 console.log("[ERR: add] Columns and Rows must match!");
                 return;
             }
-            return this.map((e, i, j) => e + v.data[i][j]);
+            return this
+                .map((e, i, j) => e + m.data[i][j]);
         } else {
-            return this.map(e => e + v);
+            return this.map(e => e + m);
         }
     }
 
-    map(func) {
-        let val;
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                val = this.data[i][j];
-                this.data[i][j] = func(val, i, j);
+    multiply(m) {
+        if (m instanceof Matrix) {
+            if (this.rows !== m.rows || this.cols !== m.cols) {
+                console.log('Columns and Rows of A must match Columns and Rows of B.');
+                return;
             }
+            return this
+                .map((e, i, j) => e * m.data[i][j]); // Hadamard Product
+        } else {
+            return this.map(e => e * m); // Scalar Product
         }
-        return this;
     }
 
     static scalar(m1, m2) {
@@ -59,13 +64,30 @@ class Matrix {
             console.log("[ERR: scalar] First matrix's column and second matrix's row sizes are not equal!");
             return undefined;
         }
-        return new Matrix(m1.rows, m2.cols).map((e, i, j) => {
-            let sum = 0;
-            for (let k = 0; k < a.cols; k++) {
-                sum += m1.data[i][k] * m2.data[k][j];
+        return new Matrix(m1.rows, m2.cols)
+            .map((e, i, j) => {
+                let sum = 0;
+                for (let k = 0; k < a.cols; k++) {
+                    sum += m1.data[i][k] * m2.data[k][j];
+                }
+                return sum;
+            });
+    }
+
+    map(func) {
+        let m;
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                m = this.data[i][j];
+                this.data[i][j] = func(m, i, j);
             }
-            return sum;
-        });
+        }
+        return this;
+    }
+
+    static map(m, func) {
+        return new Matrix(m.rows, m.cols)
+            .map((e, i, j) => func(m.data[i][j], i, j));
     }
 
     print() {
