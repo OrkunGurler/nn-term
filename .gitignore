@@ -64,6 +64,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # Redundant Files
+*/index.html
+*/*/index.html
 /resources
 */image
 */tex
