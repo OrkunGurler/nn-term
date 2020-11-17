@@ -67,8 +67,6 @@ class Matrix {
         return m;
     }
 
-    static vector(m1, m2) { }
-
     print() {
         console.table(this.data);
     }
