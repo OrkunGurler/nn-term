@@ -54,4 +54,18 @@ class NeuralNet {
     setActivationFunction(func = sigmoid) {
         this.activation_function = func;
     }
+
+    predict(input_array) {
+        let inputs = Matrix.fromArray(input_array);
+
+        let hidden = Matrix.multiply(this.weights_ih, inputs);
+        hidden.add(this.bias_h);
+        hidden.map(this.activation_function.func);
+
+        let output = Matrix.multiply(this.weights_ho, hidden);
+        output.add(this.bias_o);
+        output.map(this.activation_function.func);
+
+        return output.toArray();
+    }
 }
