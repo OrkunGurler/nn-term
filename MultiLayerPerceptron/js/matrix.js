@@ -32,9 +32,10 @@ class Matrix {
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
                 val = this.data[i][j];
-                this.data[i][j] = func(val);
+                this.data[i][j] = func(val, i, j);
             }
         }
+        return this;
     }
 
     static scalar(m1, m2) {
@@ -59,5 +60,6 @@ class Matrix {
 
     print() {
         console.table(this.data);
+        return this;
     }
 }
