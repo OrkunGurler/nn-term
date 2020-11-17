@@ -58,11 +58,11 @@ class NeuralNet {
     predict(input_array) {
         let inputs = Matrix.fromArray(input_array);
 
-        let hidden = Matrix.multiply(this.weights_ih, inputs);
+        let hidden = Matrix.scalar(this.weights_ih, inputs);
         hidden.add(this.bias_h);
         hidden.map(this.activation_function.func);
 
-        let output = Matrix.multiply(this.weights_ho, hidden);
+        let output = Matrix.scalar(this.weights_ho, hidden);
         output.add(this.bias_o);
         output.map(this.activation_function.func);
 
@@ -71,11 +71,11 @@ class NeuralNet {
 
     train(input_array, target_array) {
         let inputs = Matrix.fromArray(input_array);
-        let hidden = Matrix.multiply(this.weights_ih, inputs);
+        let hidden = Matrix.scalar(this.weights_ih, inputs);
         hidden.add(this.bias_h);
         hidden.map(this.activation_function.func);
 
-        let outputs = Matrix.multiply(this.weights_ho, hidden);
+        let outputs = Matrix.scalar(this.weights_ho, hidden);
         outputs.add(this.bias_o);
         outputs.map(this.activation_function.func);
 
@@ -86,26 +86,26 @@ class NeuralNet {
         gradients.multiply(this.learning_rate);
 
         let hidden_T = Matrix.transpose(hidden);
-        let weight_ho_deltas = Matrix.multiply(gradients, hidden_T);
+        let weight_ho_deltas = Matrix.scalar(gradients, hidden_T);
         this.weights_ho.add(weight_ho_deltas);
         this.bias_o.add(gradients);
 
         let who_t = Matrix.transpose(this.weights_ho);
-        let hidden_errors = Matrix.multiply(who_t, output_errors);
+        let hidden_errors = Matrix.scalar(who_t, output_errors);
         let hidden_gradient = Matrix.map(hidden, this.activation_function.dfunc);
         hidden_gradient.multiply(hidden_errors);
         hidden_gradient.multiply(this.learning_rate);
 
         let inputs_T = Matrix.transpose(inputs);
 
-        let weight_ih_deltas = Matrix.multiply(hidden_gradient, inputs_T);
+        let weight_ih_deltas = Matrix.scalar(hidden_gradient, inputs_T);
         this.weights_ih.add(weight_ih_deltas);
 
         this.bias_h.add(hidden_gradient);
 
-        // outputs.print();
-        // targets.print();
-        // error.print();
+        outputs.print();
+        targets.print();
+        error.print();
     }
 
     serialize() {
