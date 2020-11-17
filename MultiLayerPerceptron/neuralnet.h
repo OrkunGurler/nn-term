@@ -21,6 +21,6 @@ typedef struct NeuralNet
     float (*activasion)(float);
 } NeuralNet;
 
-NeuralNet neuralnet(int input, int hidden, int output, float learning_rate, float (*activation)(float));
+NeuralNet neuralnet(int *node_arr, float learning_rate, float (*activation)(float));
 Matrix predict(NeuralNet net, float *input_arr, int size);
 void train(NeuralNet net, float input_arr, float target_arr);

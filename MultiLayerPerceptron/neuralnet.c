@@ -9,19 +9,19 @@ Nodes nodes(int input, int hidden, int output)
     return n;
 }
 
-NeuralNet neuralnet(int input, int hidden, int output, float learning_rate, float (*activation)(float))
+NeuralNet neuralnet(int *node_arr, float learning_rate, float (*activation)(float))
 {
     NeuralNet net;
-    net.nodes = nodes(input, hidden, output);
+    net.nodes = nodes(node_arr[0], node_arr[1], node_arr[2]);
 
-    net.weights_ih = matrix(hidden, input);
+    net.weights_ih = matrix(net.nodes.hidden, net.nodes.input);
     m_rand(net.weights_ih, -1, 1);
-    net.bias_ih = matrix(hidden, 1);
+    net.bias_ih = matrix(net.nodes.hidden, 1);
     m_rand(net.bias_ih, -1, 1);
 
-    net.weights_ho = matrix(output, hidden);
+    net.weights_ho = matrix(net.nodes.output, net.nodes.hidden);
     m_rand(net.weights_ho, -1, 1);
-    net.bias_ho = matrix(output, 1);
+    net.bias_ho = matrix(net.nodes.output, 1);
     m_rand(net.bias_ho, -1, 1);
 
     net.learning_rate = learning_rate;
