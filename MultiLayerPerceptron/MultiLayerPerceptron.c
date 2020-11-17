@@ -5,9 +5,9 @@
 
 typedef struct nodes
 {
-    int input_nodes, hidden_nodes, output_nodes;
+    int input, hidden, output;
 } nodes;
-nodes Nodes(int input_nodes, int hidden_nodes, int output_nodes);
+nodes Nodes(int input, int hidden, int output);
 
 typedef struct matrix
 {
@@ -33,7 +33,7 @@ void PrintMatrix(matrix m);
 int main(int argc, char const *argv[])
 {
     // srand(time(NULL));
-    // nodes nodes = Nodes(3, 3, 1);
+    // nodes n = Nodes(3, 3, 1);
     // matrix m = Matrix(3, 2);
 
     return 0;
@@ -51,13 +51,13 @@ float Sigmoid_d(float x)
     return r;
 }
 
-nodes Nodes(int input_nodes, int hidden_nodes, int output_nodes)
+nodes Nodes(int input, int hidden, int output)
 {
-    nodes nodes;
-    nodes.input_nodes = input_nodes;
-    nodes.hidden_nodes = hidden_nodes;
-    nodes.output_nodes = output_nodes;
-    return nodes;
+    nodes n;
+    n.input = input;
+    n.hidden = hidden;
+    n.output = output;
+    return n;
 }
 
 matrix Matrix(int rows, int cols)
