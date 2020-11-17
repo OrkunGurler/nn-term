@@ -20,21 +20,11 @@ class Matrix {
         if (b <= 0) {
             [a, b] = [b, a];
         }
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                this.data[i][j] = (Math.random() * (b - a)) + a;
-            }
-        }
+        return this.map(e => ((Math.random() * (b - a)) + a));
     }
 
-    transpose() {
-        let m_t = new Matrix(this.cols, this.rows);
-        for (let i = 0; i < this.rows; i++) {
-            for (let j = 0; j < this.cols; j++) {
-                m_t.data[j][i] = this.data[i][j];
-            }
-        }
-        return m_t;
+    static transpose(matrix) {
+        return new Matrix(matrix.cols, matrix.rows).map((_, i, j) => matrix.data[j][i]);
     }
 
     map(func) {
