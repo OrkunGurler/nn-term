@@ -81,7 +81,7 @@ class NeuralNet {
         outputs.map(this.activation_function.func);
 
         let targets = Matrix.fromArray(target_array);
-        let output_errors = Matrix.subtract(targets, outputs);
+        let output_errors = Matrix.sub(targets, outputs);
         let gradients = Matrix.map(outputs, this.activation_function.dfunc);
         gradients.multiply(output_errors);
         gradients.multiply(this.learning_rate);
