@@ -128,4 +128,16 @@ class NeuralNet {
         nn.learning_rate = data.learning_rate;
         return nn;
     }
+
+    copy() {
+        return new NeuralNet(this);
+    }
+
+    mutate(func) {
+        this.weights_ih.map(func);
+        this.weights_ho.map(func);
+
+        this.bias_h.map(func);
+        this.bias_o.map(func);
+    }
 }
