@@ -53,18 +53,6 @@ void m_s_add(matrix m, float n)
     }
 }
 
-void m_s_mult(matrix m, float n)
-{
-    int i, j;
-    for (i = 0; i < m.rows; i++)
-    {
-        for (j = 0; j < m.cols; j++)
-        {
-            m.data[i][j] *= n;
-        }
-    }
-}
-
 matrix m_add(matrix m1, matrix m2)
 {
     matrix m;
@@ -85,13 +73,25 @@ matrix m_add(matrix m1, matrix m2)
     return m;
 }
 
-matrix m_dot(matrix m1, matrix m2)
+void m_s_mult(matrix m, float n)
+{
+    int i, j;
+    for (i = 0; i < m.rows; i++)
+    {
+        for (j = 0; j < m.cols; j++)
+        {
+            m.data[i][j] *= n;
+        }
+    }
+}
+
+matrix m_scalar(matrix m1, matrix m2)
 {
     matrix m;
     int i, j, k;
     if (m1.cols != m2.rows)
     {
-        printf("\n[ERR: m_dot] First matrix's column and second matrix's row sizes are not equal!\n");
+        printf("\n[ERR: m_scalar] First matrix's column and second matrix's row sizes are not equal!\n");
         exit(1);
     }
     m = Matrix(m1.rows, m2.cols);
@@ -120,6 +120,46 @@ matrix m_tra(matrix m)
         }
     }
     return m_t;
+}
+
+matrix m_copy(matrix m)
+{
+    matrix m_c = Matrix(m.cols, m.rows);
+    int i, j;
+    for (i = 0; i < m.rows; i++)
+    {
+        for (j = 0; j < m.cols; j++)
+        {
+            m_c.data[i][j] = m.data[i][j];
+        }
+    }
+    return m_c;
+}
+
+float **to_arr(matrix m)
+{
+    float **arr = (float **)malloc(m.rows * sizeof(float *));
+    int i, j;
+    for (i = 0; i < m.rows; i++)
+    {
+        arr[i] = (float *)malloc(m.cols * sizeof(float));
+        for (j = 0; j < m.cols; j++)
+        {
+            arr[i][j] = m.data[i][j];
+        }
+    }
+    return arr;
+}
+
+matrix from_arr(float *arr, int size)
+{
+    matrix m = Matrix(size, 1);
+    int i;
+    for (i = 0; i < size; i++)
+    {
+        m.data[i][1] = arr[i];
+    }
+    return m;
 }
 
 void PrintMatrix(matrix m)
