@@ -53,47 +53,47 @@ class NeuralNet {
     }
 
     setActivationFunction(func) {
-        this.activation_function = func;
+        this.activation = func;
     }
 
-    predict(input_array) {
-        let inputs = Matrix.fromArray(input_array);
+    predict(input_arr) {
+        let inputs = Matrix.fromArray(input_arr);
 
         let hidden = Matrix.scalar(this.weights_ih, inputs);
         hidden.add(this.bias_h);
-        hidden.map(this.activation_function.func);
+        hidden.map(this.activation.func);
 
         let output = Matrix.scalar(this.weights_ho, hidden);
         output.add(this.bias_o);
-        output.map(this.activation_function.func);
+        output.map(this.activation.func);
 
         return output.toArray();
     }
 
-    train(input_array, target_array) {
-        let inputs = Matrix.fromArray(input_array);
+    train(input_arr, target_arr) {
+        let inputs = Matrix.fromArray(input_arr);
         let hidden = Matrix.scalar(this.weights_ih, inputs);
         hidden.add(this.bias_h);
-        hidden.map(this.activation_function.func);
+        hidden.map(this.activation.func);
 
         let outputs = Matrix.scalar(this.weights_ho, hidden);
         outputs.add(this.bias_o);
-        outputs.map(this.activation_function.func);
+        outputs.map(this.activation.func);
 
-        let targets = Matrix.fromArray(target_array);
+        let targets = Matrix.fromArray(target_arr);
         let output_errors = Matrix.sub(targets, outputs);
-        let gradients = Matrix.map(outputs, this.activation_function.dfunc);
+        let gradients = Matrix.map(outputs, this.activation.func_d);
         gradients.multiply(output_errors);
         gradients.multiply(this.learning_rate);
 
         let hidden_T = Matrix.transpose(hidden);
-        let weight_ho_deltas = Matrix.scalar(gradients, hidden_T);
-        this.weights_ho.add(weight_ho_deltas);
+        let weights_ho_deltas = Matrix.scalar(gradients, hidden_T);
+        this.weights_ho.add(weights_ho_deltas);
         this.bias_o.add(gradients);
 
-        let who_t = Matrix.transpose(this.weights_ho);
-        let hidden_errors = Matrix.scalar(who_t, output_errors);
-        let hidden_gradient = Matrix.map(hidden, this.activation_function.dfunc);
+        let weights_ho_t = Matrix.transpose(this.weights_ho);
+        let hidden_errors = Matrix.scalar(weights_ho_t, output_errors);
+        let hidden_gradient = Matrix.map(hidden, this.activation.func_d);
         hidden_gradient.multiply(hidden_errors);
         hidden_gradient.multiply(this.learning_rate);
 
@@ -104,9 +104,9 @@ class NeuralNet {
 
         this.bias_h.add(hidden_gradient);
 
-        outputs.print();
-        targets.print();
-        error.print();
+        // outputs.print();
+        // targets.print();
+        // error.print();
     }
 
     serialize() {

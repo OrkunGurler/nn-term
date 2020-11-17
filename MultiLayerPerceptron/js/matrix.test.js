@@ -1,5 +1,3 @@
-const Matrix = require('./matrix');
-
 test('add scalar to matrix', () => {
     let m = new Matrix(3, 3);
     m.data[0] = [1, 2, 3];
