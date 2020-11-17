@@ -9,6 +9,7 @@ int main(int argc, char const *argv[])
     int input_arr_size = (int)(sizeof(input_arr) / sizeof(float));
 
     Matrix p = predict(n, input_arr, input_arr_size);
+
     PrintMatrix(p);
 
     return 0;

@@ -152,7 +152,7 @@ Matrix m_copy(Matrix m)
 
 float *to_arr(Matrix m)
 {
-    float *arr = (float *)malloc(m.rows * sizeof(float));
+    float *arr = (float *)malloc((m.rows * m.cols) * sizeof(float));
     int i, j;
     for (i = 0; i < m.rows; i++)
     {
@@ -188,7 +188,6 @@ void PrintArray(float *arr, int size)
 void PrintMatrix(Matrix m)
 {
     int i, j;
-    printf("\n");
     for (i = 0; i < m.rows; i++)
     {
         for (j = 0; j < m.cols; j++)
