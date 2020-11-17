@@ -68,4 +68,43 @@ class NeuralNet {
 
         return output.toArray();
     }
+
+    train(input_array, target_array) {
+        let inputs = Matrix.fromArray(input_array);
+        let hidden = Matrix.multiply(this.weights_ih, inputs);
+        hidden.add(this.bias_h);
+        hidden.map(this.activation_function.func);
+
+        let outputs = Matrix.multiply(this.weights_ho, hidden);
+        outputs.add(this.bias_o);
+        outputs.map(this.activation_function.func);
+
+        let targets = Matrix.fromArray(target_array);
+        let output_errors = Matrix.subtract(targets, outputs);
+        let gradients = Matrix.map(outputs, this.activation_function.dfunc);
+        gradients.multiply(output_errors);
+        gradients.multiply(this.learning_rate);
+
+        let hidden_T = Matrix.transpose(hidden);
+        let weight_ho_deltas = Matrix.multiply(gradients, hidden_T);
+        this.weights_ho.add(weight_ho_deltas);
+        this.bias_o.add(gradients);
+
+        let who_t = Matrix.transpose(this.weights_ho);
+        let hidden_errors = Matrix.multiply(who_t, output_errors);
+        let hidden_gradient = Matrix.map(hidden, this.activation_function.dfunc);
+        hidden_gradient.multiply(hidden_errors);
+        hidden_gradient.multiply(this.learning_rate);
+
+        let inputs_T = Matrix.transpose(inputs);
+
+        let weight_ih_deltas = Matrix.multiply(hidden_gradient, inputs_T);
+        this.weights_ih.add(weight_ih_deltas);
+
+        this.bias_h.add(hidden_gradient);
+
+        // outputs.print();
+        // targets.print();
+        // error.print();
+    }
 }
