@@ -7,7 +7,7 @@ int main(int argc, char const *argv[])
     int output_nodes = 1;
     Nodes n = set_nodes(input_nodes, hidden_nodes, output_nodes);
 
-    Activation af = set_activation(&Leaky_ReLU, &Leaky_ReLU_d);
+    Activation af = set_activation(&Sigmoid, &Sigmoid_d);
 
     NeuralNetwork network = create_neuralnetwork(n, af, 0.01);
 
