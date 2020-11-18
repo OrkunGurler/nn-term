@@ -1,4 +1,4 @@
-#include "neuralnet.h"
+#include "network.h"
 #include <stdio.h>
 
 int main(int argc, char const *argv[])

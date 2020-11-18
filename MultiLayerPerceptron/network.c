@@ -1,4 +1,4 @@
-#include "neuralnet.h"
+#include "network.h"
 
 Nodes set_nodes(int input, int hidden, int output)
 {
