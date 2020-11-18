@@ -3,7 +3,7 @@
 #include <time.h>
 #include "matrix.h"
 
-Matrix matrix(int rows, int cols)
+Matrix create_matrix(int rows, int cols)
 {
     Matrix m;
     m.rows = rows;
@@ -21,7 +21,7 @@ Matrix matrix(int rows, int cols)
     return m;
 }
 
-void m_rand(Matrix m, int a, int b)
+void m_randomize(Matrix m, int a, int b)
 {
     srand(time(NULL));
     int temp;
@@ -62,7 +62,7 @@ Matrix m_add(Matrix m1, Matrix m2)
         printf("\n[ERR: m_add] The column or row sizes are not equal!\n");
         exit(1);
     }
-    m = matrix(m1.rows, m1.cols);
+    m = create_matrix(m1.rows, m1.cols);
     for (i = 0; i < m.rows; i++)
     {
         for (j = 0; j < m.cols; j++)
@@ -73,7 +73,7 @@ Matrix m_add(Matrix m1, Matrix m2)
     return m;
 }
 
-void m_s_mult(Matrix m, float n)
+void m_s_multiply(Matrix m, float n)
 {
     int i, j;
     for (i = 0; i < m.rows; i++)
@@ -94,7 +94,7 @@ Matrix m_scalar(Matrix m1, Matrix m2)
         printf("\n[ERR: m_scalar] First matrix's column and second matrix's row sizes are not equal!\n");
         exit(1);
     }
-    m = matrix(m1.rows, m2.cols);
+    m = create_matrix(m1.rows, m2.cols);
     for (i = 0; i < m.rows; i++)
     {
         for (j = 0; j < m.cols; j++)
@@ -108,9 +108,9 @@ Matrix m_scalar(Matrix m1, Matrix m2)
     return m;
 }
 
-Matrix m_tra(Matrix m)
+Matrix m_transpose(Matrix m)
 {
-    Matrix m_t = matrix(m.cols, m.rows);
+    Matrix m_t = create_matrix(m.cols, m.rows);
     int i, j;
     for (i = 0; i < m.rows; i++)
     {
@@ -138,7 +138,7 @@ void m_map(Matrix m, float (*func)(float))
 
 Matrix m_copy(Matrix m)
 {
-    Matrix m_c = matrix(m.cols, m.rows);
+    Matrix m_c = create_matrix(m.cols, m.rows);
     int i, j;
     for (i = 0; i < m.rows; i++)
     {
@@ -150,7 +150,7 @@ Matrix m_copy(Matrix m)
     return m_c;
 }
 
-float *to_arr(Matrix m)
+float *to_array(Matrix m)
 {
     float *arr = (float *)malloc((m.rows * m.cols) * sizeof(float));
     int i, j;
@@ -164,9 +164,9 @@ float *to_arr(Matrix m)
     return arr;
 }
 
-Matrix from_arr(float *arr, int size)
+Matrix from_array(float *arr, int size)
 {
-    Matrix m = matrix(size, 1);
+    Matrix m = create_matrix(size, 1);
     int i;
     for (i = 0; i < size; i++)
     {
@@ -175,7 +175,7 @@ Matrix from_arr(float *arr, int size)
     return m;
 }
 
-void PrintArray(float *arr, int size)
+void print_array(float *arr, int size)
 {
     int i;
     for (i = 0; i < size - 1; i++)
@@ -185,7 +185,7 @@ void PrintArray(float *arr, int size)
     printf("%.6f\n", arr[size - 1]);
 }
 
-void PrintMatrix(Matrix m)
+void print_matrix(Matrix m)
 {
     int i, j;
     for (i = 0; i < m.rows; i++)

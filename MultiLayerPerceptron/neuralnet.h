@@ -5,9 +5,9 @@ typedef struct Nodes
 {
     int input, hidden, output;
 } Nodes;
-Nodes nodes(int input, int hidden, int output);
+Nodes set_nodes(int input, int hidden, int output);
 
-typedef struct NeuralNet
+typedef struct NeuralNetwork
 {
     Nodes nodes;
 
@@ -20,8 +20,8 @@ typedef struct NeuralNet
     Activation activation;
 
     float learning_rate;
-} NeuralNet;
-NeuralNet neuralnet(Nodes n, Activation func, float learning_rate);
+} NeuralNetwork;
+NeuralNetwork create_neuralnetwork(Nodes n, Activation func, float learning_rate);
 
-Matrix predict(NeuralNet net, Matrix input);
-void train(NeuralNet net, float input_arr, float target_arr);
+Matrix predict(NeuralNetwork network, Matrix input);
+void train(NeuralNetwork network, float input_arr, float target_arr);

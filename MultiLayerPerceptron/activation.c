@@ -2,7 +2,7 @@
 #include "activation.h"
 #define INF 0xFFFFFFFF
 
-Activation activation(float (*func)(float), float (*func_d)(float))
+Activation set_activation(float (*func)(float), float (*func_d)(float))
 {
     Activation act;
     act.func = func;

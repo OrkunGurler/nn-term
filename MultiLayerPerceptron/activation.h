@@ -3,7 +3,7 @@ typedef struct Activation
     float (*func)(float);
     float (*func_d)(float);
 } Activation;
-Activation activation(float (*func)(float), float (*func_d)(float));
+Activation set_activation(float (*func)(float), float (*func_d)(float));
 
 // Identity
 float Identity(float x);

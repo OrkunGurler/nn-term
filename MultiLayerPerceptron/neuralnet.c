@@ -1,6 +1,6 @@
 #include "neuralnet.h"
 
-Nodes nodes(int input, int hidden, int output)
+Nodes set_nodes(int input, int hidden, int output)
 {
     Nodes n;
     n.input = input;
@@ -9,42 +9,42 @@ Nodes nodes(int input, int hidden, int output)
     return n;
 }
 
-NeuralNet neuralnet(Nodes n, Activation func, float learning_rate)
+NeuralNetwork create_neuralnetwork(Nodes n, Activation func, float learning_rate)
 {
-    NeuralNet net;
+    NeuralNetwork network;
 
-    net.nodes = n;
+    network.nodes = n;
 
-    net.weights_ih = matrix(net.nodes.hidden, net.nodes.input);
-    m_rand(net.weights_ih, -1, 1);
-    net.bias_ih = matrix(net.nodes.hidden, 1);
-    m_rand(net.bias_ih, -1, 1);
+    network.weights_ih = create_matrix(network.nodes.hidden, network.nodes.input);
+    m_randomize(network.weights_ih, -1, 1);
+    network.bias_ih = create_matrix(network.nodes.hidden, 1);
+    m_randomize(network.bias_ih, -1, 1);
 
-    net.weights_ho = matrix(net.nodes.output, net.nodes.hidden);
-    m_rand(net.weights_ho, -1, 1);
-    net.bias_ho = matrix(net.nodes.output, 1);
-    m_rand(net.bias_ho, -1, 1);
+    network.weights_ho = create_matrix(network.nodes.output, network.nodes.hidden);
+    m_randomize(network.weights_ho, -1, 1);
+    network.bias_ho = create_matrix(network.nodes.output, 1);
+    m_randomize(network.bias_ho, -1, 1);
 
-    net.activation = func;
+    network.activation = func;
 
-    net.learning_rate = learning_rate;
+    network.learning_rate = learning_rate;
 
-    return net;
+    return network;
 }
 
-Matrix predict(NeuralNet net, Matrix input)
+Matrix predict(NeuralNetwork network, Matrix input)
 {
-    Matrix hidden = m_scalar(net.weights_ih, input);
-    hidden = m_add(hidden, net.bias_ih);
-    m_map(hidden, net.activation.func);
+    Matrix hidden = m_scalar(network.weights_ih, input);
+    hidden = m_add(hidden, network.bias_ih);
+    m_map(hidden, network.activation.func);
 
-    Matrix output = m_scalar(net.weights_ho, hidden);
-    output = m_add(output, net.bias_ho);
-    m_map(output, net.activation.func_d);
+    Matrix output = m_scalar(network.weights_ho, hidden);
+    output = m_add(output, network.bias_ho);
+    m_map(output, network.activation.func_d);
 
     return output;
 }
 
-void train(NeuralNet net, float input_arr, float target_arr)
+void train(NeuralNetwork network, float input_arr, float target_arr)
 {
 }
