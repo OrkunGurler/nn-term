@@ -113,6 +113,8 @@ float Sinc(float x) { return (x == 0 ? 1 : (sin(x) / x)); }
 float Sinc_d(float x) { return (x == 0 ? 0 : ((cos(x) / x) - (sin(x) / pow(x, 2)))); }
 
 // Gaussian
+float Gaussian(float x) { return (exp(-pow(x, 2))); }
+float Gaussian_d(float x) { return (-2 * x * exp(-pow(x, 2))); }
 
 // SQ-RBF
 

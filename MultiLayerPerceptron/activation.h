@@ -80,6 +80,8 @@ float Sinc(float x);
 float Sinc_d(float x);
 
 // Gaussian
+float Gaussian(float x);
+float Gaussian_d(float x);
 
 // SQ-RBF
 
