@@ -46,12 +46,20 @@ float Leaky_ReLU(float x, float alpha);
 float Leaky_ReLU_d(float x, float alpha);
 
 // Parameteric Rectified Linear Unit
-// float PReLU(float x, float alpha);
-// float PReLU_d(float x, float alpha);
+float PReLU(float x, float alpha);
+float PReLU_d(float x, float alpha);
 
 // ArcTan
+float ArcTan(float x);
+float ArcTan_d(float x);
+
+// ElliotSig
+float ElliotSig(float x);
+float ElliotSig_d(float x);
 
 // Square Nonlinearity
+float SQNL(float x);
+float SQNL_d(float x);
 
 // S-Shaped Rectified Linear Activation Unit
 

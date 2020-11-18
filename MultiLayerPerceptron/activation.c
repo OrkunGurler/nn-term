@@ -73,6 +73,26 @@ float ElliotSig(float x) { return (x / (1 + abs(x))); }
 float ElliotSig_d(float x) { return (1 / pow(1 + abs(x), 2)); }
 
 // Square Nonlinearity
+float SQNL(float x)
+{
+    if (x > 2)
+    {
+        return 1;
+    }
+    else if ((x >= 0) && (x <= 2))
+    {
+        return (x - (pow(x, 2) / 4));
+    }
+    else if ((x >= -2) && (x < 0))
+    {
+        return (x + (pow(x, 2) / 4));
+    }
+    else
+    {
+        return -1;
+    }
+}
+float SQNL_d(float x) { return (x < 0 ? (1 + (x / 2)) : (1 - (x / 2))); }
 
 // S-Shaped Rectified Linear Activation Unit
 
