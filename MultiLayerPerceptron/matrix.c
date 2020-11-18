@@ -173,7 +173,7 @@ float m_r_max(Matrix m, int n)
     {
         arr[i] = m.data[n][i];
     }
-    m_sort(arr, m.cols);
+    m_ins_sort(arr, m.cols, 1);
     max = arr[m.cols - 1];
     free(arr);
     return max;
@@ -188,7 +188,7 @@ float m_r_min(Matrix m, int n)
     {
         arr[i] = m.data[n][i];
     }
-    m_sort(arr, m.cols);
+    m_ins_sort(arr, m.cols, 1);
     min = arr[0];
     free(arr);
     return min;
@@ -203,7 +203,7 @@ float m_c_max(Matrix m, int n)
     {
         arr[i] = m.data[n][i];
     }
-    m_sort(arr, m.rows);
+    m_ins_sort(arr, m.rows, 1);
     max = arr[m.rows - 1];
     free(arr);
     return max;
@@ -218,13 +218,31 @@ float m_r_min(Matrix m, int n)
     {
         arr[i] = m.data[n][i];
     }
-    m_sort(arr, m.rows);
+    m_ins_sort(arr, m.rows, 1);
     min = arr[0];
     free(arr);
     return min;
 }
 
-// void m_sort(float *arr, int size);
+// Insertion Sort
+void m_ins_sort(float *arr, int size, int flag)
+{
+    int temp;
+    int i, j;
+    for (i = 1; i < size; i++)
+    {
+        temp = arr[i];
+        j = i - 1;
+        while (j >= 0 && compare(arr[j], temp, flag))
+        {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = temp;
+    }
+}
+
+int compare(int num1, int num2, int flag) { return (flag == 1 ? num1 > num2 : num1 < num2); }
 
 Matrix m_transpose(Matrix m)
 {
