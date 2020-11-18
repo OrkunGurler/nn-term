@@ -209,6 +209,21 @@ float m_c_max(Matrix m, int n)
     return max;
 }
 
+float m_r_min(Matrix m, int n)
+{
+    float min = 0;
+    float *arr = (float *)malloc(m.rows * sizeof(float));
+    int i;
+    for (i = 0; i < m.rows; i++)
+    {
+        arr[i] = m.data[n][i];
+    }
+    m_sort(arr, m.rows);
+    min = arr[0];
+    free(arr);
+    return min;
+}
+
 // void m_sort(float *arr, int size);
 
 Matrix m_transpose(Matrix m)
