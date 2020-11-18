@@ -97,8 +97,12 @@ float SQNL_d(float x) { return (x < 0 ? (1 + (x / 2)) : (1 - (x / 2))); }
 // S-Shaped Rectified Linear Activation Unit
 
 // Bent identity
+float BentIdentity(float x) { return (((sqrt(pow(x, 2) + 1) - 1) / 2) + x); }
+float BentIdentity_d(float x) { return ((x / (2 * sqrt(pow(x, 2) + 1))) + 1); }
 
 // Sigmoid Linear Unit
+float SiLU(float x) { return (x / (1 + exp(-x))); }
+float SiLU_d(float x) { return ((1 + exp(-x) + (x * exp(-x))) / pow(1 + exp(-x), 2)); }
 
 // Sinusoid
 

@@ -64,8 +64,12 @@ float SQNL_d(float x);
 // S-Shaped Rectified Linear Activation Unit
 
 // Bent identity
+float BentIdentity(float x);
+float BentIdentity_d(float x);
 
 // Sigmoid Linear Unit
+float SiLU(float x);
+float SiLU_d(float x);
 
 // Sinusoid
 
