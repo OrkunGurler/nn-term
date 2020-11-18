@@ -144,6 +144,22 @@ Matrix m_scalar(Matrix m1, Matrix m2)
     return m;
 }
 
+float m_r_sum(Matrix m, int n)
+{
+    float sum = 0;
+    int i, j;
+    for (i = 0; i < m.cols; i++)
+    {
+        sum += m.data[n][i];
+    }
+}
+
+// float m_c_sum(Matrix m, int n){}
+
+// float m_r_max(Matrix m, int n){}
+
+// float m_c_max(Matrix m, int n){}
+
 Matrix m_transpose(Matrix m)
 {
     Matrix m_t = create_matrix(m.cols, m.rows);
