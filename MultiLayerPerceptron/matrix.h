@@ -15,6 +15,18 @@ void m_multiply(Matrix m, float n);
 void m_hadamard(Matrix m1, Matrix m2);
 Matrix m_scalar(Matrix m1, Matrix m2);
 
+float m_r_sum(Matrix m, int n);
+float m_c_sum(Matrix m, int n);
+
+float m_r_max(Matrix m, int n);
+float m_r_min(Matrix m, int n);
+float m_c_max(Matrix m, int n);
+float m_c_min(Matrix m, int n);
+
+// Insertion Sort
+void m_ins_sort(float *arr, int size, int flag);
+int compare(int num1, int num2, int flag);
+
 Matrix m_transpose(Matrix m);
 
 void m_map(Matrix m, float (*func)(float));
