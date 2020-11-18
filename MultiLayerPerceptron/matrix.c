@@ -147,14 +147,22 @@ Matrix m_scalar(Matrix m1, Matrix m2)
 float m_r_sum(Matrix m, int n)
 {
     float sum = 0;
-    int i, j;
+    int i;
     for (i = 0; i < m.cols; i++)
     {
         sum += m.data[n][i];
     }
 }
 
-// float m_c_sum(Matrix m, int n){}
+float m_c_sum(Matrix m, int n)
+{
+    float sum = 0;
+    int i;
+    for (i = 0; i < m.rows; i++)
+    {
+        sum += m.data[i][n];
+    }
+}
 
 // float m_r_max(Matrix m, int n){}
 
