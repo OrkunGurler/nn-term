@@ -24,7 +24,7 @@ float Sigmoid_d(float x) { return (Sigmoid(x) * (1 - Sigmoid(x))); }
 
 // TanH
 float TanH(float x) { return ((exp(x) - exp(-x)) / (exp(x) + exp(-x))); }
-float TanH_d(float x) { return (1 - (TanH(x) * TanH(x))); }
+float TanH_d(float x) { return (1 - pow(TanH(x), 2)); }
 
 // Rectified Linear Unit
 float ReLU(float x) { return (x > 0 ? x : 0); }
@@ -66,7 +66,11 @@ float PReLU_d(float x, float alpha) { return (x < 0 ? alpha : 1); }
 
 // ArcTan
 float ArcTan(float x) { return (atan(x)); }
-float ArcTan(float x) { return (1 / ((x * x) + 1)); }
+float ArcTan_d(float x) { return (1 / (pow(x, 2) + 1)); }
+
+// ElliotSig
+float ElliotSig(float x) { return (x / (1 + abs(x))); }
+float ElliotSig_d(float x) { return (1 / pow(1 + abs(x), 2)); }
 
 // Square Nonlinearity
 
