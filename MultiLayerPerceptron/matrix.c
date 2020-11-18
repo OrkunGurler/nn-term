@@ -179,6 +179,21 @@ float m_r_max(Matrix m, int n)
     return max;
 }
 
+float m_r_min(Matrix m, int n)
+{
+    float min = 0;
+    float *arr = (float *)malloc(m.cols * sizeof(float));
+    int i;
+    for (i = 0; i < m.cols; i++)
+    {
+        arr[i] = m.data[n][i];
+    }
+    m_sort(arr, m.cols);
+    min = arr[0];
+    free(arr);
+    return min;
+}
+
 // float m_c_max(Matrix m, int n){}
 
 // void m_sort(float *arr, int size);
