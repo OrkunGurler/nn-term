@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
     m_randomize(input, -100, 100);
     Matrix p = predict(network, input);
 
-    printf("\nPredicted..: \n");
+    printf("\nPredicted..: ");
     print_array(to_array(p), p.rows * p.cols);
 
     return 0;

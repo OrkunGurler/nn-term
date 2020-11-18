@@ -69,8 +69,14 @@ float ArcTan(float x) { return (atan(x)); }
 float ArcTan_d(float x) { return (1 / (pow(x, 2) + 1)); }
 
 // ElliotSig
-float ElliotSig(float x) { return (x / (1 + abs(x))); }
-float ElliotSig_d(float x) { return (1 / pow(1 + abs(x), 2)); }
+float ElliotSig(float x)
+{
+    return (x / (1 + (x < 0 ? -x : x)));
+}
+float ElliotSig_d(float x)
+{
+    return (1 / pow(1 + (x < 0 ? -x : x), 2));
+}
 
 // Square Nonlinearity
 float SQNL(float x)
@@ -119,13 +125,14 @@ float Gaussian_d(float x) { return (-2 * x * exp(-pow(x, 2))); }
 // SQ-RBF
 float SQRBF(float x)
 {
-    if (abs(x) <= 1)
+    float y = (x < 0 ? -x : x);
+    if (y <= 1)
     {
         return (1 - (pow(x, 2) / 2));
     }
-    else if ((abs(x) > 1) && (abs(x) < 2))
+    else if ((y > 1) && (y < 2))
     {
-        return ((1 / 2) * pow(2 - abs(x), 2));
+        return ((1 / 2) * pow(2 - y, 2));
     }
     else
     {
@@ -134,11 +141,12 @@ float SQRBF(float x)
 }
 float SQRBF_d(float x)
 {
-    if (abs(x) <= 1)
+    float y = (x < 0 ? -x : x);
+    if (y <= 1)
     {
         return (-x);
     }
-    else if ((abs(x) > 1) && (abs(x) < 2))
+    else if ((y > 1) && (y < 2))
     {
         return (x - (2 * (x > 0 ? 1 : x == 0 ? 0 : -1)));
     }
@@ -151,5 +159,5 @@ float SQRBF_d(float x)
 // Softmax
 
 // Maxout
-Matrix Maxout(Matrix x) {}
-Matrix Maxout_d(Matrix x) {}
+// Matrix Maxout(Matrix x) {}
+// Matrix Maxout_d(Matrix x) {}

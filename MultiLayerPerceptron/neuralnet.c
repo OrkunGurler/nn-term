@@ -58,7 +58,7 @@ void train(NeuralNetwork network, Matrix inputs, Matrix targets)
     Matrix output_errors = m_copy(targets);
     m_subtraction(output_errors, outputs);
     Matrix output_gradients = m_map_r(outputs, network.activation.func_d);
-    m_hadamar(output_gradients, output_errors);
+    m_hadamard(output_gradients, output_errors);
     m_multiply(output_gradients, network.learning_rate);
 
     Matrix hidden_t = m_transpose(hidden);
@@ -70,7 +70,7 @@ void train(NeuralNetwork network, Matrix inputs, Matrix targets)
     Matrix hidden_errors = m_scalar(weights_ho_t, output_errors);
     Matrix hidden_gradients = m_copy(hidden);
     m_map(hidden_gradients, network.activation.func_d);
-    m_hadamar(hidden_gradients, hidden_errors);
+    m_hadamard(hidden_gradients, hidden_errors);
     m_multiply(hidden_gradients, network.learning_rate);
 
     Matrix inputs_t = m_transpose(inputs);
