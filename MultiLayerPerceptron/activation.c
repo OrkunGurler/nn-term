@@ -57,14 +57,16 @@ float SELU_d(float x)
 }
 
 // Leaky Rectified Linear Unit
-float Leaky_ReLU(float x, float alpha) { return (x > 0 ? x : (alpha * x)); }
-float Leaky_ReLU_d(float x, float alpha) { return (x > 0 ? 1 : alpha); }
+float Leaky_ReLU(float x, float alpha) { return (x < 0 ? (0.01 * x) : x); }
+float Leaky_ReLU_d(float x, float alpha) { return (x < 0 ? 0.01 : x); }
 
 // Parameteric Rectified Linear Unit
-// float PReLU(float x, float alpha) {}
-// float PReLU_d(float x, float alpha) {}
+float PReLU(float x, float alpha) { return (x < 0 ? (alpha * x) : x); }
+float PReLU_d(float x, float alpha) { return (x < 0 ? alpha : 1); }
 
 // ArcTan
+float ArcTan(float x) { return (atan(x)); }
+float ArcTan(float x) { return (1 / ((x * x) + 1)); }
 
 // Square Nonlinearity
 
