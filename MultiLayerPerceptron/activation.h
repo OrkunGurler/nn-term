@@ -1,3 +1,5 @@
+#include "matrix.h"
+
 typedef struct Activation
 {
     float (*func)(float);
@@ -86,6 +88,9 @@ float Gaussian_d(float x);
 // SQ-RBF
 float SQRBF(float x);
 float SQRBF_d(float x);
+
 // Softmax
 
 // Maxout
+Matrix Maxout(Matrix x);
+Matrix Maxout_d(Matrix x);

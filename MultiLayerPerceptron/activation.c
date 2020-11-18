@@ -151,3 +151,5 @@ float SQRBF_d(float x)
 // Softmax
 
 // Maxout
+Matrix Maxout(Matrix x) {}
+Matrix Maxout_d(Matrix x) {}
