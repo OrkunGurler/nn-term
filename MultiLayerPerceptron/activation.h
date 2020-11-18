@@ -84,7 +84,8 @@ float Gaussian(float x);
 float Gaussian_d(float x);
 
 // SQ-RBF
-
+float SQRBF(float x);
+float SQRBF_d(float x);
 // Softmax
 
 // Maxout

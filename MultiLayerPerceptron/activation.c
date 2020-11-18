@@ -117,6 +117,36 @@ float Gaussian(float x) { return (exp(-pow(x, 2))); }
 float Gaussian_d(float x) { return (-2 * x * exp(-pow(x, 2))); }
 
 // SQ-RBF
+float SQRBF(float x)
+{
+    if (abs(x) <= 1)
+    {
+        return (1 - (pow(x, 2) / 2));
+    }
+    else if ((abs(x) > 1) && (abs(x) < 2))
+    {
+        return ((1 / 2) * pow(2 - abs(x), 2));
+    }
+    else
+    {
+        return 0;
+    }
+}
+float SQRBF_d(float x)
+{
+    if (abs(x) <= 1)
+    {
+        return (-x);
+    }
+    else if ((abs(x) > 1) && (abs(x) < 2))
+    {
+        return (x - (2 * (x > 0 ? 1 : x == 0 ? 0 : -1)));
+    }
+    else
+    {
+        return 0;
+    }
+}
 
 // Softmax
 
