@@ -9,9 +9,9 @@ Nodes set_nodes(int input, int hidden, int output)
     return node;
 }
 
-NeuralNetwork create_neuralnetwork(Nodes node, Activation func, float learning_rate)
+Network create_network(Nodes node, Activation func, float learning_rate)
 {
-    NeuralNetwork network;
+    Network network;
 
     network.nodes = node;
 
@@ -32,7 +32,7 @@ NeuralNetwork create_neuralnetwork(Nodes node, Activation func, float learning_r
     return network;
 }
 
-Matrix predict(NeuralNetwork network, Matrix input)
+Matrix predict(Network network, Matrix input)
 {
     Matrix hidden = m_scalar(network.weights_ih, input);
     m_addition(hidden, network.bias_ih);
@@ -45,7 +45,7 @@ Matrix predict(NeuralNetwork network, Matrix input)
     return outputs;
 }
 
-void train(NeuralNetwork network, Matrix inputs, Matrix targets)
+void train(Network network, Matrix inputs, Matrix targets)
 {
     Matrix hidden = m_scalar(network.weights_ih, inputs);
     m_addition(hidden, network.bias_ih);
