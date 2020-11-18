@@ -21,7 +21,7 @@ typedef struct NeuralNetwork
 
     float learning_rate;
 } NeuralNetwork;
-NeuralNetwork create_neuralnetwork(Nodes n, Activation func, float learning_rate);
+NeuralNetwork create_neuralnetwork(Nodes node, Activation func, float learning_rate);
 
 Matrix predict(NeuralNetwork network, Matrix input);
-void train(NeuralNetwork network, float input_arr, float target_arr);
+void train(NeuralNetwork network, Matrix inputs, Matrix targets);

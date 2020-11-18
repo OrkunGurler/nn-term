@@ -2,18 +2,18 @@
 
 Nodes set_nodes(int input, int hidden, int output)
 {
-    Nodes n;
-    n.input = input;
-    n.hidden = hidden;
-    n.output = output;
-    return n;
+    Nodes node;
+    node.input = input;
+    node.hidden = hidden;
+    node.output = output;
+    return node;
 }
 
-NeuralNetwork create_neuralnetwork(Nodes n, Activation func, float learning_rate)
+NeuralNetwork create_neuralnetwork(Nodes node, Activation func, float learning_rate)
 {
     NeuralNetwork network;
 
-    network.nodes = n;
+    network.nodes = node;
 
     network.weights_ih = create_matrix(network.nodes.hidden, network.nodes.input);
     m_randomize(network.weights_ih, -1, 1);
@@ -35,16 +35,47 @@ NeuralNetwork create_neuralnetwork(Nodes n, Activation func, float learning_rate
 Matrix predict(NeuralNetwork network, Matrix input)
 {
     Matrix hidden = m_scalar(network.weights_ih, input);
-    hidden = m_add(hidden, network.bias_ih);
+    m_addition(hidden, network.bias_ih);
     m_map(hidden, network.activation.func);
 
-    Matrix output = m_scalar(network.weights_ho, hidden);
-    output = m_add(output, network.bias_ho);
-    m_map(output, network.activation.func_d);
+    Matrix outputs = m_scalar(network.weights_ho, hidden);
+    m_addition(outputs, network.bias_ho);
+    m_map(outputs, network.activation.func);
 
-    return output;
+    return outputs;
 }
 
-void train(NeuralNetwork network, float input_arr, float target_arr)
+void train(NeuralNetwork network, Matrix inputs, Matrix targets)
 {
+    Matrix hidden = m_scalar(network.weights_ih, inputs);
+    m_addition(hidden, network.bias_ih);
+    m_map(hidden, network.activation.func);
+
+    Matrix outputs = m_scalar(network.weights_ho, hidden);
+    m_addition(outputs, network.bias_ho);
+    m_map(outputs, network.activation.func);
+
+    Matrix output_errors = m_copy(targets);
+    m_subtraction(output_errors, outputs);
+    Matrix output_gradients = m_map_r(outputs, network.activation.func_d);
+    m_hadamar(output_gradients, output_errors);
+    m_multiply(output_gradients, network.learning_rate);
+
+    Matrix hidden_t = m_transpose(hidden);
+    Matrix weights_ho_d = m_scalar(output_gradients, hidden_t);
+    m_addition(network.weights_ho, weights_ho_d);
+    m_addition(network.bias_ho, output_gradients);
+
+    Matrix weights_ho_t = m_transpose(network.weights_ho);
+    Matrix hidden_errors = m_scalar(weights_ho_t, output_errors);
+    Matrix hidden_gradients = m_copy(hidden);
+    m_map(hidden_gradients, network.activation.func_d);
+    m_hadamar(hidden_gradients, hidden_errors);
+    m_multiply(hidden_gradients, network.learning_rate);
+
+    Matrix inputs_t = m_transpose(inputs);
+
+    Matrix weights_ih_d = m_scalar(hidden_gradients, inputs_t);
+    m_addition(network.weights_ih, weights_ih_d);
+    m_addition(network.bias_ih, hidden_gradients);
 }
