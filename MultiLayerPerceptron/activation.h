@@ -38,8 +38,8 @@ float ELU(float x, float alpha);
 float ELU_d(float x, float alpha);
 
 // Scaled Exponential Linear Unit
-// float SELU(float x, float alpha);
-// float SELU_d(float x, float alpha);
+float SELU(float x);
+float SELU_d(float x);
 
 // Leaky Rectified Linear Unit
 float Leaky_ReLU(float x, float alpha);
