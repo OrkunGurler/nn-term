@@ -72,8 +72,12 @@ float SiLU(float x);
 float SiLU_d(float x);
 
 // Sinusoid
+float Sinusoid(float x);
+float Sinusoid_d(float x);
 
 // Sinc
+float Sinc(float x);
+float Sinc_d(float x);
 
 // Gaussian
 

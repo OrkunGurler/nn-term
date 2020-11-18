@@ -109,6 +109,8 @@ float Sinusoid(float x) { return (sin(x)); }
 float Sinusoid_d(float x) { return (cos(x)); }
 
 // Sinc
+float Sinc(float x) { return (x == 0 ? 1 : (sin(x) / x)); }
+float Sinc_d(float x) { return (x == 0 ? 0 : ((cos(x) / x) - (sin(x) / pow(x, 2)))); }
 
 // Gaussian
 
