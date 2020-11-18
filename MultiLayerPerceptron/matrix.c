@@ -21,27 +21,32 @@ Matrix create_matrix(int rows, int cols)
     return m;
 }
 
-void m_randomize(Matrix m, int a, int b)
+void m_randomize(Matrix m, int init, int fin)
 {
     srand(time(NULL));
-    int temp;
-    if (b <= 0)
+    if (init > fin)
     {
-        temp = a;
-        a = b;
-        b = temp;
+        printf("\n[ERR: m_randomize] Initial value must be lower than Final value!\n");
+        exit(1);
+    }
+    int temp;
+    if (fin <= 0)
+    {
+        temp = init;
+        init = fin;
+        fin = temp;
     }
     int i, j;
     for (i = 0; i < m.rows; i++)
     {
         for (j = 0; j < m.cols; j++)
         {
-            m.data[i][j] = (((float)rand() / (float)(RAND_MAX)) * (b - a)) + a;
+            m.data[i][j] = (((float)rand() / (float)(RAND_MAX)) * (fin - init)) + init;
         }
     }
 }
 
-void m_s_add(Matrix m, float n)
+void m_add_n(Matrix m, float n)
 {
     int i, j;
     for (i = 0; i < m.rows; i++)
@@ -53,27 +58,41 @@ void m_s_add(Matrix m, float n)
     }
 }
 
-Matrix m_add(Matrix m1, Matrix m2)
+void m_addition(Matrix m1, Matrix m2)
 {
-    Matrix m;
     int i, j;
     if ((m1.rows != m2.rows) || (m1.cols != m2.cols))
     {
-        printf("\n[ERR: m_add] The column or row sizes are not equal!\n");
+        printf("\n[ERR: m_addition] Columns and Rows must match!\n");
         exit(1);
     }
-    m = create_matrix(m1.rows, m1.cols);
-    for (i = 0; i < m.rows; i++)
+    for (i = 0; i < m1.rows; i++)
     {
-        for (j = 0; j < m.cols; j++)
+        for (j = 0; j < m1.cols; j++)
         {
-            m.data[i][j] = m1.data[i][j] + m2.data[i][j];
+            m1.data[i][j] += m2.data[i][j];
         }
     }
-    return m;
 }
 
-void m_s_multiply(Matrix m, float n)
+void m_subtraction(Matrix m1, Matrix m2)
+{
+    int i, j;
+    if ((m1.rows != m2.rows) || (m1.cols != m2.cols))
+    {
+        printf("\n[ERR: m_subtraction] Columns and Rows must match!\n");
+        exit(1);
+    }
+    for (i = 0; i < m1.rows; i++)
+    {
+        for (j = 0; j < m1.cols; j++)
+        {
+            m1.data[i][j] -= m2.data[i][j];
+        }
+    }
+}
+
+void m_multiply(Matrix m, float n)
 {
     int i, j;
     for (i = 0; i < m.rows; i++)
@@ -85,13 +104,30 @@ void m_s_multiply(Matrix m, float n)
     }
 }
 
+void m_hadamard(Matrix m1, Matrix m2)
+{
+    int i, j;
+    if ((m1.rows != m2.rows) || (m1.cols != m2.cols))
+    {
+        printf("\n[ERR: m_hadamard] Columns and Rows must match!\n");
+        exit(1);
+    }
+    for (i = 0; i < m1.rows; i++)
+    {
+        for (j = 0; j < m1.cols; j++)
+        {
+            m1.data[i][j] *= m2.data[i][j];
+        }
+    }
+}
+
 Matrix m_scalar(Matrix m1, Matrix m2)
 {
     Matrix m;
     int i, j, k;
     if (m1.cols != m2.rows)
     {
-        printf("\n[ERR: m_scalar] First matrix's column and second matrix's row sizes are not equal!\n");
+        printf("\n[ERR: m_scalar] First matrix's Column Size and Second matrix's Row Size must match!\n");
         exit(1);
     }
     m = create_matrix(m1.rows, m2.cols);
@@ -136,6 +172,34 @@ void m_map(Matrix m, float (*func)(float))
     }
 }
 
+void m_map_v(Matrix m, void (*func)(float))
+{
+    int i, j;
+    for (i = 0; i < m.rows; i++)
+    {
+        for (j = 0; j < m.cols; j++)
+        {
+            func(m.data[i][j]);
+        }
+    }
+}
+
+Matrix m_map_r(Matrix m, float (*func)(float))
+{
+    float f;
+    Matrix nm = create_matrix(m.rows, m.cols);
+    int i, j;
+    for (i = 0; i < m.rows; i++)
+    {
+        for (j = 0; j < m.cols; j++)
+        {
+            f = m.data[i][j];
+            nm.data[i][j] = func(f);
+        }
+    }
+    return nm;
+}
+
 Matrix m_copy(Matrix m)
 {
     Matrix m_c = create_matrix(m.cols, m.rows);
@@ -153,24 +217,28 @@ Matrix m_copy(Matrix m)
 float *to_array(Matrix m)
 {
     float *arr = (float *)malloc((m.rows * m.cols) * sizeof(float));
-    int i, j;
+    int i, j, count = 0;
     for (i = 0; i < m.rows; i++)
     {
         for (j = 0; j < m.cols; j++)
         {
-            arr[i] = m.data[i][j];
+            arr[count] = m.data[i][j];
+            count++;
         }
     }
     return arr;
 }
 
-Matrix from_array(float *arr, int size)
+Matrix from_array(float *arr, int rows, int cols)
 {
-    Matrix m = create_matrix(size, 1);
-    int i;
-    for (i = 0; i < size; i++)
+    Matrix m = create_matrix(rows, cols);
+    int i, j;
+    for (i = 0; i < rows; i++)
     {
-        m.data[i][1] = arr[i];
+        for (j = 0; j < cols; j++)
+        {
+            m.data[i][j] = arr[i];
+        }
     }
     return m;
 }
