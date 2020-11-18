@@ -30,8 +30,8 @@ float ReLU_d(float x);
 // float GELU_d(float x);
 
 // SoftPlus
-// float SoftPlus(float x);
-// float SoftPlus_d(float x);
+float SoftPlus(float x);
+float SoftPlus_d(float x);
 
 // Exponential Linear Unit
 float ELU(float x, float alpha);

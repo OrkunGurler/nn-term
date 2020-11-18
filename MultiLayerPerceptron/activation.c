@@ -35,16 +35,26 @@ float ReLU_d(float x) { return (x > 0 ? 1 : 0); }
 // float GELU_d(float x) {}
 
 // SoftPlus
-// float SoftPlus(float x) {}
-// float SoftPlus_d(float x) {}
+float SoftPlus(float x) { return (log(1 + exp(x))); }
+float SoftPlus_d(float x) { return (1 / (1 + exp(-x))); }
 
 // Exponential Linear Unit
-float ELU(float x, float alpha) { return (x >= 0 ? x : (alpha * (exp(x) - 1))); }
-float ELU_d(float x, float alpha) { return (x > 0 ? 1 : (alpha * exp(x))); }
+float ELU(float x, float alpha) { return (x > 0 ? x : (alpha * (exp(x) - 1))); }
+float ELU_d(float x, float alpha) { return (x > 0 ? 1 : (ELU(x, alpha) + alpha)); }
 
 // Scaled Exponential Linear Unit
-// float SELU(float x, float alpha) {}
-// float SELU_d(float x, float alpha) {}
+float SELU(float x)
+{
+    const float lambda = 1.0507;
+    const float alpha = 1.67326;
+    return (lambda * (x < 0 ? (alpha * (exp(x) - 1)) : x));
+}
+float SELU_d(float x)
+{
+    const float lambda = 1.0507;
+    const float alpha = 1.67326;
+    return (lambda * (x < 0 ? (alpha * exp(x)) : 1));
+}
 
 // Leaky Rectified Linear Unit
 float Leaky_ReLU(float x, float alpha) { return (x > 0 ? x : (alpha * x)); }
