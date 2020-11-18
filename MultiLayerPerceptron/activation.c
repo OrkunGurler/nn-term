@@ -105,6 +105,8 @@ float SiLU(float x) { return (x / (1 + exp(-x))); }
 float SiLU_d(float x) { return ((1 + exp(-x) + (x * exp(-x))) / pow(1 + exp(-x), 2)); }
 
 // Sinusoid
+float Sinusoid(float x) { return (sin(x)); }
+float Sinusoid_d(float x) { return (cos(x)); }
 
 // Sinc
 
