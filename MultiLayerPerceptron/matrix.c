@@ -152,6 +152,7 @@ float m_r_sum(Matrix m, int n)
     {
         sum += m.data[n][i];
     }
+    return sum;
 }
 
 float m_c_sum(Matrix m, int n)
@@ -162,6 +163,7 @@ float m_c_sum(Matrix m, int n)
     {
         sum += m.data[i][n];
     }
+    return sum;
 }
 
 float m_r_max(Matrix m, int n)
@@ -209,7 +211,7 @@ float m_c_max(Matrix m, int n)
     return max;
 }
 
-float m_r_min(Matrix m, int n)
+float m_c_min(Matrix m, int n)
 {
     float min = 0;
     float *arr = (float *)malloc(m.rows * sizeof(float));
