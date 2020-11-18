@@ -164,9 +164,24 @@ float m_c_sum(Matrix m, int n)
     }
 }
 
-// float m_r_max(Matrix m, int n){}
+float m_r_max(Matrix m, int n)
+{
+    float max = 0;
+    float *arr = (float *)malloc(m.cols * sizeof(float));
+    int i;
+    for (i = 0; i < m.cols; i++)
+    {
+        arr[i] = m.data[n][i];
+    }
+    m_sort(arr, m.cols);
+    max = arr[m.cols - 1];
+    free(arr);
+    return max;
+}
 
 // float m_c_max(Matrix m, int n){}
+
+// void m_sort(float *arr, int size);
 
 Matrix m_transpose(Matrix m)
 {
