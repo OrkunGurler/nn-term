@@ -64,12 +64,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Redundant Files
-*/*.out
-*/*/*.out
-*/*.gch
-*/*/*.gch
-*/index.html
-*/*/index.html
 /resources
 */image
 */tex
