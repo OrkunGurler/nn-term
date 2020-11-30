@@ -63,8 +63,8 @@ void merge(double *arr, int p, int q, int r, int flag)
     }
     if (flag)
     {
-        left[n1] = inf;
-        right[n2] = inf;
+        left[n1] = INF;
+        right[n2] = INF;
     }
     i = 0;
     j = 0;

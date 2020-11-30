@@ -1,4 +1,4 @@
-#define inf 0xFFFFFFFF
+#define INF 0xFFFFFFFF
 
 int compare(double num1, double num2, int flag);
 
