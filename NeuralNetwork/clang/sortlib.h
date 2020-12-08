@@ -1,12 +1,12 @@
-#define INF 0xFFFFFFFF
+#include "nnetlib.h"
 
-int compare(double num1, double num2, int flag);
+int compare(float num1, float num2, int flag);
 
-void bubblesort(double *arr, int size, int flag);
+void bubble_sort(float *arr, int size, int flag);
 
-void insertionsort(double *arr, int size, int flag);
+void insertion_sort(float *arr, int size, int flag);
 
-void merge(double *arr, int p, int q, int r, int flag);
-void mergesort(double *arr, int p, int r, int flag);
+void merge(float *arr, int p, int q, int r, int flag);
+void merge_sort(float *arr, int p, int r, int flag);
 
-void selectionsort(double *arr, int size, int flag);
+void selection_sort(float *arr, int size, int flag);
