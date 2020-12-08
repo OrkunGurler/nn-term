@@ -1,4 +1,4 @@
-#include "sortlib.h"
+#include "nnetlib.h"
 
 typedef struct matrix
 {
@@ -7,7 +7,7 @@ typedef struct matrix
 } mx;
 mx createm(int rows, int cols);
 
-void matrandom(mx m, int init, int fin);
+void randomize(mx m, int init, int fin);
 
 void addtom(mx m, float n);
 void addm(mx m1, mx m2);
