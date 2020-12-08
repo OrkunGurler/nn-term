@@ -1,4 +1,4 @@
-#include "nnetlib.h"
+#define INF 0xFFFFFFFF
 
 int compare(float num1, float num2, int flag);
 
