@@ -1,42 +1,41 @@
 #include "nnetlib.h"
 
-neuron setneurons(int input, int hidden, int output)
+nnet create_network(mx input_data, int hidden_layer_node_size, int hidden_layer_size, int output_node_size)
 {
-    neuron n;
-    n.input = input;
-    n.hidden = hidden;
-    n.output = output;
-    return n;
+    nnet nnet;
+    int data_size = input_data.rows;
+    nnet.layers = create_layers(data_size, hidden_layer_node_size, hidden_layer_size, output_node_size);
+    add_input(nnet, input_data);
+    return nnet;
 }
 
-weight setweights(neuron neurons, int hcount, int flag)
+void add_input(nnet nnet, mx input_data)
 {
-    weight w;
-    w.i2h = createm(neurons.input, hcount);
-    w.i2hb = createm(neurons.input, 1);
-    w.h2h = (mx *)malloc(hcount * sizeof(mx));
-    w.h2hb = (mx *)malloc(hcount * sizeof(mx));
-    int i;
-    for (i = 0; i < hcount; i++)
+    int i, j;
+    for (i = 0; i < nnet.layers->nodes.rows; i++)
     {
-        w.h2h[i] = createm(hcount, hcount);
-        w.h2hb[i] = createm(hcount, 1);
-        if (flag)
+        for (j = 0; j < nnet.layers->nodes.cols; j++)
         {
-            matrandom(w.h2h[i], 0, 1);
-            matrandom(w.h2hb[i], 0, 1);
+            nnet.layers->nodes.data[i][j] = input_data.data[i][j];
         }
     }
-    w.h2o = createm(hcount, neurons.output);
-    w.h2ob = createm(hcount, 1);
-    return w;
 }
 
-nnet createnetwork(neuron neurons, weight weights, activ activation, float learningrate)
+void predict(nnet nnet, mx input_for_prediction)
 {
-    nnet n;
-    n.neurons = neurons;
-    n.weights = weights;
-    n.activation = activation;
-    n.learningrate = learningrate;
+    layer layer = nnet.layers;
+    while (layer->next != NULL)
+    {
+        layer->next->nodes = dot(layer->weights, layer->nodes);
+        addtom(layer->next->nodes, layer->bias);
+        map(layer->next->nodes, &sigmoid);
+        layer = layer->next;
+    }
+    printf("\nrows..: %d", layer->nodes.rows);
+    printf("\ncols..: %d\n", layer->nodes.cols);
+    print_matrix(layer->nodes);
 }
+
+void linear_regression() {}
+void gradient_descent() {}
+void logistic_regression() {}
