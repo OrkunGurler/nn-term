@@ -1,4 +1,9 @@
-#include "nnetlib.h"
+#include <math.h>
+
+typedef struct activlib
+{
+
+} activ;
 
 // Identity
 float identity(float x);
@@ -13,8 +18,8 @@ float sigmoid(float x);
 float sigmoid_d(float x);
 
 // TanH
-float tanh(float x);
-float tanh_d(float x);
+float tan_h(float x);
+float tan_h_d(float x);
 
 // Rectified Linear Unit
 float relu(float x);

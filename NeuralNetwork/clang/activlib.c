@@ -6,15 +6,15 @@ float identity_d(float x) { return 1; }
 
 // Binary Step
 float binary_step(float x) { return (x < 0 ? 0 : 1); }
-float binary_step_d(float x) { return (x != 0 ? 0 : INF); }
+float binary_step_d(float x) { return (x != 0 ? 0 : 0xFFFFFFFF); }
 
 // Sigmoid
 float sigmoid(float x) { return (1 / (1 + exp(-x))); }
 float sigmoid_d(float x) { return (sigmoid(x) * (1 - sigmoid(x))); }
 
 // TanH
-float tanh(float x) { return ((exp(x) - exp(-x)) / (exp(x) + exp(-x))); }
-float tanh_d(float x) { return (1 - pow(tanh(x), 2)); }
+float tan_h(float x) { return ((exp(x) - exp(-x)) / (exp(x) + exp(-x))); }
+float tan_h_d(float x) { return (1 - pow(tanh(x), 2)); }
 
 // Rectified Linear Unit
 float relu(float x) { return (x > 0 ? x : 0); }
