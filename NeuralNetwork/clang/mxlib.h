@@ -1,11 +1,14 @@
-#include "nnetlib.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include "sortlib.h"
 
-typedef struct matrix
+typedef struct mxlib
 {
     int rows, cols;
     float **data;
 } mx;
-mx createm(int rows, int cols);
+mx create_matrix(int rows, int cols);
 
 void randomize(mx m, int init, int fin);
 
@@ -20,10 +23,8 @@ mx dot(mx m1, mx m2);
 float r_sum(mx m, int rn);
 float c_sum(mx m, int cn);
 
-float r_max(mx m, int rn);
-float r_min(mx m, int rn);
-float c_max(mx m, int cn);
-float c_min(mx m, int cn);
+float r_maxmin(mx m, int rn, int flag);
+float c_maxmin(mx m, int cn, int flag);
 
 mx transpose(mx m);
 
@@ -33,8 +34,10 @@ mx map_r(mx m, float (*func)(float));
 
 mx copym(mx m);
 
-float *mtoarr(mx m);
-mx arrtom(float *arr, int rows, int cols);
+float *matrix_to_array(mx m);
+mx array_to_matrix(float *arr, int rows, int cols);
 
-void printarr(float *arr, int size);
-void printm(mx m);
+void free_matrix(mx m);
+
+void print_arr(float *arr, int size);
+void print_matrix(mx m);

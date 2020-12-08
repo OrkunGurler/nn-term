@@ -1,6 +1,6 @@
 #include "mxlib.h"
 
-mx createm(int rows, int cols)
+mx create_matrix(int rows, int cols)
 {
     mx m;
     m.rows = rows;
@@ -127,7 +127,7 @@ mx dot(mx m1, mx m2)
         printf("\n[ERR: dot] First matrix's Column Size and Second matrix's Row Size must match!\n");
         exit(1);
     }
-    m = createm(m1.rows, m2.cols);
+    m = create_matrix(m1.rows, m2.cols);
     for (i = 0; i < m.rows; i++)
     {
         for (j = 0; j < m.cols; j++)
@@ -163,7 +163,7 @@ float c_sum(mx m, int n)
     return sum;
 }
 
-float r_max(mx m, int n)
+float r_maxmin(mx m, int n, int flag)
 {
     float max = 0;
     float *arr = (float *)malloc(m.cols * sizeof(float));
@@ -172,28 +172,13 @@ float r_max(mx m, int n)
     {
         arr[i] = m.data[n][i];
     }
-    insertionsort(arr, m.cols, 1);
+    insertion_sort(arr, m.cols, flag);
     max = arr[m.cols - 1];
     free(arr);
     return max;
 }
 
-float r_min(mx m, int n)
-{
-    float min = 0;
-    float *arr = (float *)malloc(m.cols * sizeof(float));
-    int i;
-    for (i = 0; i < m.cols; i++)
-    {
-        arr[i] = m.data[n][i];
-    }
-    insertionsort(arr, m.cols, 1);
-    min = arr[0];
-    free(arr);
-    return min;
-}
-
-float c_max(mx m, int n)
+float c_maxmin(mx m, int n, int flag)
 {
     float max = 0;
     float *arr = (float *)malloc(m.rows * sizeof(float));
@@ -202,30 +187,15 @@ float c_max(mx m, int n)
     {
         arr[i] = m.data[n][i];
     }
-    insertionsort(arr, m.rows, 1);
+    insertion_sort(arr, m.rows, flag);
     max = arr[m.rows - 1];
     free(arr);
     return max;
 }
 
-float c_min(mx m, int n)
-{
-    float min = 0;
-    float *arr = (float *)malloc(m.rows * sizeof(float));
-    int i;
-    for (i = 0; i < m.rows; i++)
-    {
-        arr[i] = m.data[n][i];
-    }
-    insertionsort(arr, m.rows, 1);
-    min = arr[0];
-    free(arr);
-    return min;
-}
-
 mx transpose(mx m)
 {
-    mx m_t = createm(m.cols, m.rows);
+    mx m_t = create_matrix(m.cols, m.rows);
     int i, j;
     for (i = 0; i < m.rows; i++)
     {
@@ -266,7 +236,7 @@ void map_v(mx m, void (*func)(float))
 mx map_r(mx m, float (*func)(float))
 {
     float f;
-    mx nm = createm(m.rows, m.cols);
+    mx nm = create_matrix(m.rows, m.cols);
     int i, j;
     for (i = 0; i < m.rows; i++)
     {
@@ -281,7 +251,7 @@ mx map_r(mx m, float (*func)(float))
 
 mx copym(mx m)
 {
-    mx m_c = createm(m.cols, m.rows);
+    mx m_c = create_matrix(m.cols, m.rows);
     int i, j;
     for (i = 0; i < m.rows; i++)
     {
@@ -293,7 +263,7 @@ mx copym(mx m)
     return m_c;
 }
 
-float *mtoarr(mx m)
+float *matrix_to_array(mx m)
 {
     float *arr = (float *)malloc((m.rows * m.cols) * sizeof(float));
     int i, j, count = 0;
@@ -308,9 +278,9 @@ float *mtoarr(mx m)
     return arr;
 }
 
-mx arrtom(float *arr, int rows, int cols)
+mx array_to_matrix(float *arr, int rows, int cols)
 {
-    mx m = createm(rows, cols);
+    mx m = create_matrix(rows, cols);
     int i, j;
     for (i = 0; i < rows; i++)
     {
@@ -322,7 +292,17 @@ mx arrtom(float *arr, int rows, int cols)
     return m;
 }
 
-void printarr(float *arr, int size)
+void free_matrix(mx m)
+{
+    int i;
+    for (i = 0; i < m.rows; i++)
+    {
+        free(m.data[i]);
+    }
+    free(m.data);
+}
+
+void print_arr(float *arr, int size)
 {
     int i;
     for (i = 0; i < size - 1; i++)
@@ -332,7 +312,7 @@ void printarr(float *arr, int size)
     printf("%.6f\n", arr[size - 1]);
 }
 
-void printm(mx m)
+void print_matrix(mx m)
 {
     int i, j;
     for (i = 0; i < m.rows; i++)
