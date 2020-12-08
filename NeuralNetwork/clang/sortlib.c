@@ -1,8 +1,8 @@
 #include "sortlib.h"
 
-void bubblesort(double *arr, int size, int flag)
+void bubble_sort(float *arr, int size, int flag)
 {
-    double temp;
+    float temp;
     int i, j;
     for (i = 0; i < size; i++)
     {
@@ -18,9 +18,9 @@ void bubblesort(double *arr, int size, int flag)
     }
 }
 
-void insertionsort(double *arr, int size, int flag)
+void insertion_sort(float *arr, int size, int flag)
 {
-    double temp;
+    float temp;
     int i, j;
     for (i = 1; i < size; i++)
     {
@@ -35,23 +35,23 @@ void insertionsort(double *arr, int size, int flag)
     }
 }
 
-void mergesort(double *arr, int p, int r, int flag)
+void merge_sort(float *arr, int p, int r, int flag)
 {
     if (p + 1 < r)
     {
         int q = (int)((p + r) / 2);
-        mergesort(arr, p, q, flag);
-        mergesort(arr, q, r, flag);
+        merge_sort(arr, p, q, flag);
+        merge_sort(arr, q, r, flag);
         merge(arr, p, q, r, flag);
     }
 }
 
-void merge(double *arr, int p, int q, int r, int flag)
+void merge(float *arr, int p, int q, int r, int flag)
 {
     int n1 = q - p;
     int n2 = r - q;
-    double left[n1 + 1];
-    double right[n2 + 1];
+    float left[n1 + 1];
+    float right[n2 + 1];
     int i, j, k;
     for (i = 0; i < n1; i++)
     {
@@ -83,10 +83,10 @@ void merge(double *arr, int p, int q, int r, int flag)
     }
 }
 
-void selectionsort(double *arr, int size, int flag)
+void selection_sort(float *arr, int size, int flag)
 {
     int i, j, least;
-    double temp;
+    float temp;
     for (i = 0; i < size; i++)
     {
         least = i;
@@ -102,3 +102,5 @@ void selectionsort(double *arr, int size, int flag)
         arr[least] = temp;
     }
 }
+
+int compare(float num1, float num2, int flag) { return (flag == 1 ? num1 > num2 : num1 < num2); }
