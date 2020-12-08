@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
 #include "mxlib.h"
 
 mx createm(int rows, int cols)
@@ -21,12 +18,12 @@ mx createm(int rows, int cols)
     return m;
 }
 
-void matrandom(mx m, int init, int fin)
+void randomize(mx m, int init, int fin)
 {
     srand(time(NULL));
     if (init > fin)
     {
-        printf("\n[ERR: matrandom] Initial value must be lower than Final value!\n");
+        printf("\n[ERR: randomize] Initial value must be lower than Final value!\n");
         exit(1);
     }
     int temp;
