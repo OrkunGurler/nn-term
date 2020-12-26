@@ -5,7 +5,6 @@ layer create_layers(int input_node_size, int hidden_layer_node_size, int hidden_
     layer input_layer = (layer)malloc(sizeof(LAYER_T));
     input_layer->nodes = create_matrix(input_node_size, 1);
     input_layer->weights = create_matrix(hidden_layer_node_size, input_node_size);
-    randomize(input_layer->weights, 0, 1);
     input_layer->bias = (float)rand() / (float)(RAND_MAX);
     input_layer->prev = NULL;
 

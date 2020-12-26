@@ -1,5 +1,13 @@
 #include "activlib.h"
 
+activ set_activfunc(float (*func)(float), float (*func_d)(float))
+{
+    activ activ;
+    activ.func = func;
+    activ.func_d = func_d;
+    return activ;
+}
+
 // Identity
 float identity(float x) { return x; }
 float identity_d(float x) { return 1; }

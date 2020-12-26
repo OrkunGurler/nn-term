@@ -2,8 +2,10 @@
 
 typedef struct activlib
 {
-
+    float (*func)(float);
+    float (*func_d)(float);
 } activ;
+activ set_activfunc(float (*func)(float), float (*func_d)(float));
 
 // Identity
 float identity(float x);

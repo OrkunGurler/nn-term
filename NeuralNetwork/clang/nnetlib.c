@@ -14,12 +14,13 @@ void add_input(nnet nnet, mx input_data)
 
 mx feed_forward(nnet nnet, mx input_for_prediction)
 {
+    add_input(nnet, input_for_prediction);
     layer layer = nnet.layers;
     while (layer->next != NULL)
     {
         layer->next->nodes = dot(layer->weights, layer->nodes);
         addtom(layer->next->nodes, layer->bias);
-        map(layer->next->nodes, &sigmoid);
+        map(layer->next->nodes, nnet.activation.func);
         layer = layer->next;
     }
     return layer->nodes;
@@ -28,4 +29,7 @@ mx feed_forward(nnet nnet, mx input_for_prediction)
 void linear_regression() {}
 void gradient_descent() {}
 void logistic_regression() {}
-void back_propagation(nnet nnet, mx input_for_train) {}
+void back_propagation(nnet nnet, mx input_for_train, mx input_for_test)
+{
+    mx output = feed_forward(nnet, input_for_train);
+}
